@@ -48,6 +48,7 @@ export const colors = {
   darkUndenaryBackground: "#202325", //11
   darkDuodenaryBackground: "#5538EE1A", //12
   darkTridenaryBackground: "#181818",
+
   //Text Colors
   primaryText: "#28262C", //1
   secondaryText: "#111111", //2
@@ -79,6 +80,7 @@ export const colors = {
   // octovigintaryText: "#5E6F7A", // 28
   // novemvigintaryText: "#7A8B9C", // 29
   // trigintaryText: "#9CADBE", // 30
+
   //Dark Text Colors
   darkPrimaryText: "#EDEDED", //1
   darkSecondaryText: "#F7F8F9", //2
@@ -87,6 +89,7 @@ export const colors = {
   darkQuinaryText: "#CDCFD0", //5
   darkSenaryText: "#979C9E", //6
   darkSeptanaryText: "#9990FF", //7
+
   //Border Colors
   primaryBorderColor: "#3C3744", //1
   secondaryBorderColor: "#6B7280", //2

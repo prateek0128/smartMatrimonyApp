@@ -26,15 +26,11 @@
       "predictiveBackGestureEnabled": false,
       "versionCode": 1
     },
-
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "src/assets/images/favicon.png"
     },
-
-    "plugins": ["expo-router"],
-
     "experiments": {
       "typedRoutes": true
     },
@@ -44,13 +40,14 @@
     "updates": {
       "url": "https://u.expo.dev/0b7df675-6e78-49d2-922e-8b0285b0bdd0"
     },
-
     "extra": {
       "eas": {
         "projectId": "0b7df675-6e78-49d2-922e-8b0285b0bdd0"
       }
     },
-
-    "owner": "miisco"
+    "owner": "miisco",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
