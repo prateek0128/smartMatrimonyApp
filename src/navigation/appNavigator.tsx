@@ -4,6 +4,7 @@ import Splash from "../screens/splashScreen/splash";
 import { RootStackParamList } from "../types/navigation";
 import OnboardingStack from "./onboardingStack";
 import TabsNavigator from "./tabsNavigator";
+import Login from "../screens/authScreen/login";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -14,7 +15,7 @@ export default function AppNavigator() {
       initialRouteName="Splash"
     >
       <Stack.Screen name="Splash" component={Splash} />
-      {/* <Stack.Screen name="Login" component={Login} /> */}
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Onboarding" component={OnboardingStack} />
       <Stack.Screen name="MainTabs" component={TabsNavigator} />
     </Stack.Navigator>

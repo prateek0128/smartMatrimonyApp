@@ -24,7 +24,7 @@ export type TabsParamList = {
 
 export type RootStackParamList = {
   Splash: undefined;
-  //   Login: undefined;
+  Login: undefined;
   Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
   MainTabs: NavigatorScreenParams<TabsParamList>;
 };
