@@ -11,7 +11,6 @@ import FlashMessage from "react-native-flash-message";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { colors } from "./src/assets/styles/colors";
 import { ThemeContext, ThemeProvider } from "./src/context/themeContext";
 import AppNavigator from "./src/navigation/appNavigator";
 export default function App() {
@@ -49,11 +48,11 @@ export default function App() {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <SafeAreaProvider>
               <StatusBar
-                backgroundColor={
-                  theme === "dark"
-                    ? colors.octodenaryText
-                    : colors.primaryBackground
-                } // Android background color
+                // backgroundColor={
+                //   theme === "dark"
+                //     ? colors.octodenaryText
+                //     : colors.primaryBackground
+                // } // Android background color
                 barStyle={theme === "dark" ? "light-content" : "dark-content"} // iOS & Android text/icons
                 // translucent={true}
               />

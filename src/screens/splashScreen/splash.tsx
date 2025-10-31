@@ -1,7 +1,7 @@
 // src/screens/splash/Splash.tsx
 import AsyncStorage from "@react-native-async-storage/async-storage"; // npm i @react-native-async-storage/async-storage
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
 import { RootStackParamList } from "../../types/navigation";
 

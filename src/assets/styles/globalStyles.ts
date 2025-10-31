@@ -1,12 +1,11 @@
 import { TextStyle } from "react-native";
-import { colors } from "./colors";
 import fontFamily from "./fontFamily";
 
 const globalStyles = {
   pageContainerWithBackground: (theme: string) => ({
     flex: 1,
-    backgroundColor:
-      theme === "dark" ? colors.octodenaryText : colors.primaryBackground,
+    // backgroundColor:
+    //   theme === "dark" ? colors.octodenaryText : colors.primaryBackground,
     paddingHorizontal: 24,
     paddingTop: 48,
     paddingBottom: 24,
@@ -16,7 +15,7 @@ const globalStyles = {
     fontSize: 32,
     marginBottom: 10,
     textAlign: "center",
-    color: theme === "dark" ? colors.white : colors.septendenaryText,
+    // color: theme === "dark" ? colors.white : colors.septendenaryText,
   }),
 };
 

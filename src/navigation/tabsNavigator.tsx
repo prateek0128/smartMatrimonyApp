@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
 import { TabsParamList } from "../types/navigation";
 
 import AdvancedSearch from "../screens/advancedSearchScreen/advancedSearch";
