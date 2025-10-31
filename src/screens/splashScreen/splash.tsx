@@ -19,8 +19,9 @@ export default function Splash({ navigation }: Props) {
         const onboardingDone =
           (await AsyncStorage.getItem("onboarding_done")) === "true";
 
+
         if (!token) {
-          navigation.replace("Login");
+          navigation.replace("Start");
           return;
         }
 
