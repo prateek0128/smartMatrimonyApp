@@ -1,6 +1,5 @@
-// src/screens/settings/AppSettings.tsx
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
 import { SettingsStackParamList } from "../../types/navigation";
 

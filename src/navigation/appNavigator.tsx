@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import SignUp from "../screens/signUp/signUp";
 import Splash from "../screens/splashScreen/splash";
 import { RootStackParamList } from "../types/navigation";
 import OnboardingStack from "./onboardingStack";
@@ -10,11 +12,11 @@ export default function AppNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName="Splash"
+      initialRouteName="Signup"
     >
       <Stack.Screen name="Splash" component={Splash} />
       {/* <Stack.Screen name="Login" component={Login} /> */}
-      {/* <Stack.Screen name="Signup" component={Signup} /> */}
+      <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen name="Onboarding" component={OnboardingStack} />
       <Stack.Screen name="MainTabs" component={TabsNavigator} />
     </Stack.Navigator>

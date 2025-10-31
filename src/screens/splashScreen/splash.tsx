@@ -25,7 +25,7 @@ export default function Splash({ navigation }: Props) {
         // }
 
         if (!onboardingDone) {
-          navigation.replace("Onboarding", { screen: "AddMedia" });
+          navigation.replace("Signup");
           return;
         }
 

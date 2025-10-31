@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import AddMedia from "../screens/onboardingScreen/addMedia";
 import PersonalDetails from "../screens/onboardingScreen/personalDetails";
 import { OnboardingStackParamList } from "../types/navigation";
