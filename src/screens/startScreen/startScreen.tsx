@@ -124,17 +124,10 @@ const StartScreen = () => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.registerButton}
-            onPress={handleNewRegister}
-          >
-            <Text style={styles.buttonText}>New user? Register for free</Text>
-          </TouchableOpacity>
           <PrimaryButton
             title={"New user? Register for free"}
             onPress={handleNewRegister}
           />
-
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
             <TouchableOpacity onPress={handleLogin}>
