@@ -13,21 +13,24 @@ const carouselData = [
   {
     id: 1,
     title: "A Smarter Way To Find Your Perfect Match!",
-    subtitle: "Discover meaningful connections with India's first AI-powered matchmaking app.",
-    image: require("../../assets/images/image1.jpg")
+    subtitle:
+      "Discover meaningful connections with India's first AI-powered matchmaking app.",
+    image: require("../../assets/images/image1.jpg"),
   },
   {
     id: 2,
     title: "Connect With Compatible Partners",
-    subtitle: "Our advanced algorithm matches you with people who share your values and interests.",
-    image: require("../../assets/images/splash-icon.png")
+    subtitle:
+      "Our advanced algorithm matches you with people who share your values and interests.",
+    image: require("../../assets/images/image2.jpg"),
   },
   {
     id: 3,
     title: "Start Your Journey Today with us",
-    subtitle: "Join thousands of happy couples who found love through our platform.",
-    image: require("../../assets/images/splash-icon.png")
-  }
+    subtitle:
+      "Join thousands of happy couples who found love through our platform.",
+    image: require("../../assets/images/image3.jpg"),
+  },
 ];
 
 const StartScreen = () => {
