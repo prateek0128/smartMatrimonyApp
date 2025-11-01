@@ -1,3 +1,4 @@
+import PrimaryButton from "@/src/components/primaryButton";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
@@ -129,6 +130,11 @@ const StartScreen = () => {
           >
             <Text style={styles.buttonText}>New user? Register for free</Text>
           </TouchableOpacity>
+          <PrimaryButton
+            title={"New user? Register for free"}
+            onPress={handleNewRegister}
+          />
+
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
             <TouchableOpacity onPress={handleLogin}>

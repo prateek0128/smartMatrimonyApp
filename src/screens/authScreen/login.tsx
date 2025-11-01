@@ -15,6 +15,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation"; // adjust path if needed
+import PhoneNumberInput from "@/src/components/phoneNumberInput";
 
 type LoginNavProp = NativeStackNavigationProp<RootStackParamList, "Login">;
 
@@ -93,7 +94,7 @@ const Login: React.FC = () => {
             <Text style={styles.heading}>Welcome back</Text>
 
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
+            <PhoneNumberInput/>
             <TextInput
               style={styles.input}
               placeholder="Email"

@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import { colors } from "../assets/styles/colors";
 import fontFamily from "../assets/styles/fontFamily";
+import { transparent } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
-type PrimaryButtonProps = {
+type QuaternaryButtonProps = {
   title: string;
   onPress?: () => void;
   disabled?: boolean;
@@ -18,7 +19,7 @@ type PrimaryButtonProps = {
   variant?: string; // Example variant prop
 };
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+const QuaternaryButton: React.FC<QuaternaryButtonProps> = ({
   title,
   onPress,
   disabled = false,
@@ -36,17 +37,6 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
         styles.button,
         disabled && styles.disabledButton,
         buttonStyle, // allows caller to override/add styles
-        {
-             backgroundColor:
-              colors.primaryButtonColor,
-          borderWidth: variant === "outlined" ? 1 : 0,
-          //   borderColor:
-          //     variant === "outlined"
-          //       ? theme === "dark"
-          //         ? colors.darkUndenaryBackground
-          //         : colors.nonaryBorder
-          //       : "",
-        },
       ]}
     >
       <Text
@@ -73,24 +63,28 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primaryButtonColor,
+    backgroundColor: colors.white,
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 16,
-  },
-  disabledButton: {
-    opacity: 0.5,
     borderWidth: 1,
     borderColor: colors.primaryBorderColor,
+  },
+  disabledButton: {
+ 
+    borderWidth: 1,
+    borderColor: colors.quaternaryBorderColor,
+    color: colors.quaternaryBorderColor,
+    backgroundColor: "transparent"
   },
   buttonText: {
     fontFamily: fontFamily.Inter500,
     fontSize: 16,
-    color: colors.white,
+    color: colors.primaryText,
   },
 });
 
-export default PrimaryButton;
+export default QuaternaryButton;
