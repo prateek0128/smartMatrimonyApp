@@ -1,19 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
-  View,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
   TouchableWithoutFeedback,
-  Keyboard,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import PasswordInput from "../../components/passwordInput";
 import { RootStackParamList } from "../../types/navigation"; // adjust path if needed
 
 type LoginNavProp = NativeStackNavigationProp<RootStackParamList, "Login">;
@@ -105,13 +106,14 @@ const Login: React.FC = () => {
               textContentType="emailAddress"
             />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
+            <PasswordInput
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
-              textContentType="password"
+              placeholder="Password"
+              containerStyle={styles.passwordContainer}
+              showStrengthBar={true}
+              showInfo={false}
+              title="Password"
             />
 
             <TouchableOpacity
@@ -186,4 +188,7 @@ const styles = StyleSheet.create({
   },
   link: { color: "#007bff" },
   errorText: { color: "#d9534f", marginBottom: 8 },
+  passwordContainer: {
+    marginBottom: 12,
+  },
 });

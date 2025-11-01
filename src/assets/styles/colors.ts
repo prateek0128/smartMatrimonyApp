@@ -3,9 +3,10 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   info: "",
-  error: "",
-  success: "",
-  warning: "",
+  error: "#EF4444",
+  success: "#22C55E",
+  warning: "#F59E0B",
+  neutral: "#D1D5DB",
 
   //Background Colors
   primaryBackground: "", //1
@@ -31,7 +32,7 @@ export const colors = {
   denaryText: "", //10
 
   //Border Colors
-  primaryBorderColor: "", //1
+  primaryBorderColor: "#E5E7EB", //1
   secondaryBorderColor: "", //2
   tertiaryBorderColor: "", //3
   quaternaryBorderColor: "", //4
