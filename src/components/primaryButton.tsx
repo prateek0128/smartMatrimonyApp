@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { colors } from "../assets/styles/colors";
 import fontFamily from "../assets/styles/fontFamily";
 
@@ -33,62 +34,50 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       onPress={onPress}
       disabled={disabled}
       style={[
-        styles.button,
+        styles.buttonContainer,
         disabled && styles.disabledButton,
-        buttonStyle, // allows caller to override/add styles
-        {
-             backgroundColor:
-              colors.primaryButtonColor,
-          borderWidth: variant === "outlined" ? 1 : 0,
-          //   borderColor:
-          //     variant === "outlined"
-          //       ? theme === "dark"
-          //         ? colors.darkUndenaryBackground
-          //         : colors.nonaryBorder
-          //       : "",
-        },
+        buttonStyle,
       ]}
+      activeOpacity={0.8}
     >
-      <Text
-        style={[
-          styles.buttonText,
-          {
-            // color:
-            //   variant == "outlined"
-            //     ? theme === "dark"
-            //       ? colors.white
-            //       : colors.octodenaryText
-            //     : theme === "dark"
-            //     ? colors.darkPrimaryText
-            //     : colors.nonaryText,
-          },
-          textStyle, // allows caller to override/add styles
-        ]}
+      <LinearGradient
+        colors={["#E91E63", "#FF6B9D"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.button}
       >
-        {title}
-      </Text>
+        <Text
+          style={[
+            styles.buttonText,
+            textStyle,
+          ]}
+        >
+          {title}
+        </Text>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    borderRadius: 12,
+    marginTop: 16,
+  },
   button: {
-    backgroundColor: colors.primaryButtonColor,
     paddingVertical: 16,
     paddingHorizontal: 24,
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 16,
   },
   disabledButton: {
     opacity: 0.5,
-    borderWidth: 1,
-    borderColor: colors.primaryBorderColor,
   },
   buttonText: {
     fontFamily: fontFamily.Inter500,
     fontSize: 16,
+    fontWeight: "600",
     color: colors.white,
   },
 });

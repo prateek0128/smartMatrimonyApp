@@ -1,195 +1,371 @@
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
 } from "react-native";
+import { MotiView } from "moti";
+import { LinearGradient } from "expo-linear-gradient";
+import { ArrowLeft, Mail, Phone, User } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import PasswordInput from "../../components/passwordInput";
-import { RootStackParamList } from "../../types/navigation"; // adjust path if needed
-import PhoneNumberInput from "@/src/components/phoneNumberInput";
+import PrimaryButton from "../../components/primaryButton";
+import InputTextField from "../../components/inputTextField";
+import { CustomToast, useToast } from "../../components/customToast";
+import { colors } from "../../assets/styles/colors";
+import { RootStackParamList } from "../../types/navigation";
 
 type LoginNavProp = NativeStackNavigationProp<RootStackParamList, "Login">;
 
-const fakeLoginApi = async (email: string, password: string) => {
-  // Replace this with a real API call (fetch/axios)
-  // This stub simulates network delay and success/failure
-  return new Promise<{ success: boolean; token?: string; message?: string }>(
-    (resolve) => {
-      setTimeout(() => {
-        if (email === "user@example.com" && password === "password123") {
-          resolve({ success: true, token: "fake-token-abc" });
-        } else {
-          resolve({ success: false, message: "Invalid credentials" });
+const getValidationSchema = (method: string) => {
+  if (method === "phone") {
+    return Yup.object({
+      phoneNumber: Yup.string()
+        .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
+        .required("Phone number is required"),
+    });
+  }
+  return Yup.object({
+    identifier: Yup.string()
+      .test("email-or-userid", "Invalid email or user ID", function(value) {
+        if (this.parent.method === "email") {
+          return Yup.string().email().isValidSync(value);
         }
-      }, 1200);
-    }
-  );
+        return Yup.string().min(3).isValidSync(value);
+      })
+      .required("This field is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
 };
 
-const Login: React.FC = () => {
+export default function Login() {
   const navigation = useNavigation<LoginNavProp>();
+  const [loginMethod, setLoginMethod] = useState<"phone" | "email" | "userid">(
+    "phone"
+  );
+  const { toast, showToast, hideToast } = useToast();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const validate = () => {
-    if (!email.trim() || !password) {
-      setError("Please enter both email and password.");
-      return false;
-    }
-    // simple email check (optional)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      setError("Please enter a valid email address.");
-      return false;
-    }
-    setError(null);
-    return true;
-  };
-
-  const handleLogin = async () => {
-    if (!validate()) return;
-    setLoading(true);
-    setError(null);
-
-    try {
-        navigation.replace("Onboarding", { screen: "AddMedia" });
-      const resp = await fakeLoginApi(email.trim(), password);
-      if (resp.success) {
-        // save token to secure storage / context / redux if needed
-        // then navigate to main app. Use reset so user can't go back to login with back button
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "MainTabs" }],
-        });
-      } else {
-        setError(resp.message ?? "Login failed. Please try again.");
-      }
-    } catch (e) {
-      setError("Network error. Try again.");
-    } finally {
-      setLoading(false);
+  const handleLogin = (values: any) => {
+    if (loginMethod === "phone") {
+      showToast("success", "Sending OTP to " + values.phoneNumber);
+      setTimeout(() => {
+        navigation.navigate("ProfileCreation");
+      }, 1500);
+    } else {
+      showToast("success", "Login successful!");
+      setTimeout(() => {
+        navigation.navigate("ProfileCreation");
+      }, 1500);
     }
   };
+
+
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <KeyboardAvoidingView
-        behavior={Platform.select({ ios: "padding", android: undefined })}
-        style={styles.container}
+    <LinearGradient colors={["#FFF5F7", "#FFFFFF"]} style={styles.container}>
+      <CustomToast
+        visible={toast.visible}
+        type={toast.type}
+        message={toast.message}
+        onHide={hideToast}
+      />
+
+      {/* Header */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <ArrowLeft size={20} color={colors.darkGray} />
+        <Text style={styles.backText}>Back</Text>
+      </TouchableOpacity>
+
+      {/* Animated Main Content */}
+      <MotiView
+        from={{ opacity: 0, translateY: 25 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 500 }}
+        style={{ flex: 1 }}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <Text style={styles.heading}>Welcome back</Text>
-
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
-            <PhoneNumberInput/>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="emailAddress"
-            />
-
-            <PasswordInput
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Password"
-              containerStyle={styles.passwordContainer}
-              showStrengthBar={true}
-              showInfo={false}
-              title="Password"
-            />
-
-            <TouchableOpacity
-              style={[styles.button, loading ? styles.buttonDisabled : null]}
-              onPress={handleLogin}
-              disabled={loading}
-            >
-              {loading ? (
-                <ActivityIndicator />
-              ) : (
-                <Text style={styles.buttonText}>Login</Text>
-              )}
-            </TouchableOpacity>
-
-            <View style={styles.row}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Onboarding", { screen: "PersonalDetails" })}
-              >
-                <Text style={styles.link}>Create account</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  /* implement forgot password navigation */
-                }}
-              >
-                <Text style={styles.link}>Forgot password?</Text>
-              </TouchableOpacity>
-            </View>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.title}>Welcome Back!</Text>
+            <Text style={styles.subtitle}>Login to continue your journey</Text>
           </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
-};
 
-export default Login;
+          {/* Login Tabs */}
+          <View style={styles.tabsContainer}>
+            {[
+              {
+                key: "phone",
+                label: "Phone",
+                icon: (
+                  <Phone
+                    size={16}
+                    color={loginMethod === "phone" ? colors.primaryPink : colors.mediumGray}
+                  />
+                ),
+              },
+              {
+                key: "email",
+                label: "Email",
+                icon: (
+                  <Mail
+                    size={16}
+                    color={loginMethod === "email" ? colors.primaryPink : colors.mediumGray}
+                  />
+                ),
+              },
+              {
+                key: "userid",
+                label: "User ID",
+                icon: (
+                  <User
+                    size={16}
+                    color={loginMethod === "userid" ? colors.primaryPink : colors.mediumGray}
+                  />
+                ),
+              },
+            ].map((tab) => (
+              <TouchableOpacity
+                key={tab.key}
+                style={[
+                  styles.tab,
+                  loginMethod === tab.key && styles.activeTab,
+                ]}
+                onPress={() => setLoginMethod(tab.key as any)}
+              >
+                {tab.icon}
+                <Text
+                  style={[
+                    styles.tabText,
+                    loginMethod === tab.key && styles.activeTabText,
+                  ]}
+                >
+                  {tab.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <Formik
+            initialValues={{
+              phoneNumber: "",
+              identifier: "",
+              password: "",
+              method: loginMethod,
+            }}
+            validationSchema={getValidationSchema(loginMethod)}
+            onSubmit={handleLogin}
+            enableReinitialize
+          >
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
+              <>
+                {/* Animated Input Section */}
+                <MotiView
+                  from={{ opacity: 0, translateY: 20 }}
+                  animate={{ opacity: 1, translateY: 0 }}
+                  transition={{ delay: 200, duration: 400 }}
+                >
+                  <InputTextField
+                    inputLabel={
+                      loginMethod === "phone"
+                        ? "Phone Number"
+                        : loginMethod === "email"
+                        ? "Email Address"
+                        : "User ID"
+                    }
+                    placeholder={
+                      loginMethod === "phone"
+                        ? "Enter your phone number"
+                        : loginMethod === "email"
+                        ? "Enter your email"
+                        : "Enter your user ID"
+                    }
+                    keyboardType={loginMethod === "phone" ? "phone-pad" : "default"}
+                    value={loginMethod === "phone" ? values.phoneNumber : values.identifier}
+                    onChangeText={handleChange(loginMethod === "phone" ? "phoneNumber" : "identifier")}
+                    error={(touched[loginMethod === "phone" ? "phoneNumber" : "identifier"] && errors[loginMethod === "phone" ? "phoneNumber" : "identifier"]) || undefined}
+                  />
+
+                  {(loginMethod === "email" || loginMethod === "userid") && (
+                    <PasswordInput
+                      value={values.password}
+                      onChangeText={handleChange("password")}
+                      placeholder="Enter your password"
+                      title="Password"
+                      showStrengthBar={false}
+                      showInfo={false}
+                      error={(touched.password && errors.password) || undefined}
+                    />
+                  )}
+
+                  <TouchableOpacity style={styles.forgotContainer}>
+                    <Text style={styles.forgotText}>Forgot Password?</Text>
+                  </TouchableOpacity>
+                </MotiView>
+
+                {/* Animated Button */}
+                <MotiView
+                  from={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 400, type: "timing", duration: 300 }}
+                >
+                  <PrimaryButton
+                    title={loginMethod === "phone" ? "Send OTP" : "Login"}
+                    onPress={handleSubmit}
+                    buttonStyle={{ marginTop: 10 }}
+                  />
+                </MotiView>
+              </>
+            )}
+          </Formik>
+
+          {/* Divider */}
+          <View style={styles.dividerContainer}>
+            <View style={styles.divider} />
+            <Text style={styles.orText}>OR</Text>
+            <View style={styles.divider} />
+          </View>
+
+          {/* Google Login */}
+          <TouchableOpacity style={styles.googleButton}>
+            <View style={styles.googleButtonContent}>
+              <View style={styles.googleLogo}>
+                <Text style={styles.googleG}>G</Text>
+                <Text style={styles.googleo1}>o</Text>
+                <Text style={styles.googleo2}>o</Text>
+                <Text style={styles.googleg}>g</Text>
+                <Text style={styles.googlel}>l</Text>
+                <Text style={styles.googlee}>e</Text>
+              </View>
+              <Text style={styles.googleButtonText}>Continue with Google</Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>
+              Don't have an account?{" "}
+              <Text style={styles.signupText} onPress={() => navigation.navigate("Signup")}>
+                Sign up
+              </Text>
+            </Text>
+          </View>
+        </ScrollView>
+      </MotiView>
+    </LinearGradient>
+  );
+}
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#fff" },
   container: { flex: 1 },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: "center",
-  },
-  heading: { fontSize: 26, fontWeight: "700", marginBottom: 24 },
-  input: {
-    height: 48,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    marginBottom: 12,
-  },
-  button: {
-    height: 48,
-    borderRadius: 10,
-    backgroundColor: "#007bff",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-  },
-  buttonDisabled: {
-    opacity: 0.7,
-  },
-  buttonText: { color: "#fff", fontWeight: "600", fontSize: 16 },
-  row: {
+  backButton: {
     flexDirection: "row",
-    marginTop: 16,
-    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 24,
+    marginBottom: 10,
+    marginTop: 30
   },
-  link: { color: "#007bff" },
-  errorText: { color: "#d9534f", marginBottom: 8 },
-  passwordContainer: {
-    marginBottom: 12,
+  backText: { marginLeft: 8, color: colors.darkGray, fontSize: 16 },
+  scrollContainer: { paddingHorizontal: 24, paddingBottom: 30 },
+  headerTextContainer: { marginBottom: 24 },
+  title: { color: colors.titleColor, fontSize: 26, fontWeight: "700" },
+  subtitle: { color: colors.mediumGray, fontSize: 14 },
+  tabsContainer: {
+    flexDirection: "row",
+    backgroundColor: colors.lightGray,
+    borderRadius: 12,
+    marginBottom: 20,
   },
+  tab: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 6,
+  },
+  activeTab: {
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    shadowColor: colors.black,
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  tabText: { color: colors.mediumGray, fontSize: 14 },
+  activeTabText: { color: colors.primaryPink },
+  forgotContainer: { alignSelf: "flex-end" },
+  forgotText: { color: colors.primaryPink, fontSize: 13 },
+  dividerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  divider: { flex: 1, height: 1, backgroundColor: colors.dividerColor },
+  orText: { marginHorizontal: 8, color: colors.lightTextGray, fontSize: 13 },
+  googleButton: {
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: "#DADCE0",
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: "center",
+    shadowColor: "rgba(0,0,0,0.1)",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  googleButtonContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  googleLogo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  googleG: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#4285F4",
+  },
+  googleo1: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#EA4335",
+  },
+  googleo2: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#FBBC05",
+  },
+  googleg: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#4285F4",
+  },
+  googlel: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#34A853",
+  },
+  googlee: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#EA4335",
+  },
+  googleButtonText: { 
+    fontSize: 14, 
+    color: "#3C4043",
+    fontWeight: "500",
+  },
+  footer: { marginTop: 20, alignItems: "center" },
+  footerText: { color: colors.mediumGray, fontSize: 13 },
+  signupText: { color: colors.primaryPink },
+
 });

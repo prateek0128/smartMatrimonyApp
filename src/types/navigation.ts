@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Login: undefined;
   Signup: undefined;
   Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
+  ProfileCreation: undefined;
   MainTabs: NavigatorScreenParams<TabsParamList>;
 };
 

@@ -22,7 +22,7 @@ type PasswordInputProps = {
   showInfo?: boolean;
   showStrengthBar?: boolean;
   title?: string;
-  error?: boolean;
+  error?: string | boolean;
 };
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -69,7 +69,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   const { strength, criteria } = getPasswordStrength(value);
   
   // Auto-detect error state based on password length only
-  const hasError = error || (value.length > 0 && value.length < 6);
+  const hasError = !!error || (value.length > 0 && value.length < 6);
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -155,6 +155,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           )}
         </View>
       )}
+      {typeof error === 'string' && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   input: {
-    height: 40,
+    height: 42,
     width: "100%",
     borderWidth: 1,
     borderColor: colors.primaryBorderColor,
@@ -239,6 +240,12 @@ const styles = StyleSheet.create({
   },
   criteriaInvalid: {
     color: "#666666",
+  },
+  errorText: {
+    fontSize: 12,
+    color: "#F44336",
+    fontFamily: fontFamily.Inter400,
+    marginTop: 4,
   },
 });
 

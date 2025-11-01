@@ -20,12 +20,8 @@ export default function PersonalDetails({ navigation }: Props) {
   const [about, setAbout] = useState("");
 
   const finish = () => {
-    // Demo: finalize and go to MainTabs (root)
-    // If your RootStack uses a different name, adjust "MainTabs".
-    navigation.getParent()?.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" as never }],
-    });
+    // Navigate to ProfileCreation in the root stack
+    navigation.getParent()?.navigate("ProfileCreation" as never);
   };
 
   return (
