@@ -8,7 +8,7 @@ export const colors = {
   warning: "",
 
   //Background Colors
-  primaryBackground: "", //1
+  primaryBackground: "#FFFFFF", //1
   secondaryBackground: "", //2
   tertiaryBackground: "", //3
   quaternaryBackground: "", //4
@@ -19,7 +19,7 @@ export const colors = {
   nonaryBackground: "", //9
 
   //Text Colors
-  primaryText: "", //1
+  primaryText: "#F43F5E", //1
   secondaryText: "", //2
   tertiaryText: "", //3
   quaternaryText: "", //4
@@ -43,7 +43,7 @@ export const colors = {
   denaryBorder: "", //10
 
   //Button Colors
-  primaryButtonColor: "", //1
+  primaryButtonColor: "#F43F5E", //1
   secondaryButtonColor: "", //2
   tertiaryButtonColor: "", //3
   quaternaryButtonColor: "", //4
