@@ -43,8 +43,8 @@ export const colors = {
   denaryBorder: "", //10
 
   //Button Colors
-  primaryButtonColor: "#007AFF", //1
-  secondaryButtonColor: "#2B22E2", //2
-  tertiaryButtonColor: "#303437", //3
-  quaternaryButtonColor: "#FF5247", //4
+  primaryButtonColor: "", //1
+  secondaryButtonColor: "", //2
+  tertiaryButtonColor: "", //3
+  quaternaryButtonColor: "", //4
 };
