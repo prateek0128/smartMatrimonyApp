@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontFamily: fontFamily.Inter500,
     fontSize: 14,
+    lineHeight: 16,
     color: colors.secondaryText,
   },
   dropdown: {
