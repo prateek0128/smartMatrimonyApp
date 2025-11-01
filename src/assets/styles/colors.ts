@@ -3,9 +3,10 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   info: "",
-  error: "",
-  success: "",
-  warning: "",
+  error: "#EF4444",
+  success: "#22C55E",
+  warning: "#F59E0B",
+  neutral: "#D1D5DB",
 
   //Background Colors
   primaryBackground: "#FFFFFF", //1
