@@ -1,3 +1,5 @@
+import DropdownInput from "@/src/components/dropdownInput";
+import InputTextField from "@/src/components/inputTextField";
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useMemo, useState } from "react";
@@ -8,7 +10,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -26,7 +27,16 @@ export default function SignUpScreen({ navigation }: Props) {
   const [submitting, setSubmitting] = useState(false);
 
   const [touched, setTouched] = useState<{ [k: string]: boolean }>({});
+  const [selectedCountry, setSelectedCountry] = useState<
+    string | number | null
+  >(null);
 
+  const countries = [
+    { label: "India", value: "IN" },
+    { label: "USA", value: "US" },
+    { label: "Canada", value: "CA" },
+    { label: "Australia", value: "AU" },
+  ];
   const errors = useMemo(() => {
     const e: { [k: string]: string } = {};
     if (!username.trim()) e.username = "Username is required";
@@ -129,18 +139,12 @@ export default function SignUpScreen({ navigation }: Props) {
 
         <View style={styles.formArea}>
           <View style={styles.fieldGroup}>
-            <Text style={styles.label}>Username</Text>
-            <TextInput
-              style={[
-                styles.input,
-                touched.username && errors.username ? styles.inputError : null,
-              ]}
+            {/* <Text style={styles.label}>Username</Text> */}
+            <InputTextField
               value={username}
               onChangeText={setUsername}
-              onBlur={() => setTouched((t) => ({ ...t, username: true }))}
-              placeholder="e.g. rahul123"
-              autoCapitalize="none"
-              returnKeyType="next"
+              inputLabel="Name"
+              placeholder="enter name"
             />
             {touched.username && errors.username ? (
               <Text style={styles.errorText}>{errors.username}</Text>
@@ -148,43 +152,33 @@ export default function SignUpScreen({ navigation }: Props) {
           </View>
 
           <View style={styles.fieldGroup}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              style={[
-                styles.input,
-                touched.email && errors.email ? styles.inputError : null,
-              ]}
+            {/* <Text style={styles.label}>Email</Text> */}
+            <InputTextField
               value={email}
               onChangeText={setEmail}
-              onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-              placeholder="you@example.com"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="next"
+              inputLabel="Email"
+              placeholder="enter email"
             />
+            <DropdownInput
+              label="Select Country"
+              data={countries}
+              value={selectedCountry}
+              onChange={setSelectedCountry}
+            />
+
             {touched.email && errors.email ? (
               <Text style={styles.errorText}>{errors.email}</Text>
             ) : null}
           </View>
 
           <View style={styles.fieldGroup}>
-            <Text style={styles.label}>Password</Text>
+            {/* <Text style={styles.label}>Password</Text> */}
             <View style={styles.passwordWrap}>
-              <TextInput
-                style={[
-                  styles.input,
-                  styles.passwordInput,
-                  touched.password && errors.password
-                    ? styles.inputError
-                    : null,
-                ]}
+              <InputTextField
                 value={password}
                 onChangeText={setPassword}
-                onBlur={() => setTouched((t) => ({ ...t, password: true }))}
-                placeholder="••••••••"
-                secureTextEntry={!showPassword}
-                autoCapitalize="none"
-                returnKeyType="done"
+                inputLabel="Password"
+                placeholder="enter password"
               />
               <TouchableOpacity
                 accessibilityRole="button"

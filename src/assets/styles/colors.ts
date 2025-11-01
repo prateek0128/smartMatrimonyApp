@@ -20,8 +20,8 @@ export const colors = {
 
   //Text Colors
   primaryText: "#F43F5E", //1
-  secondaryText: "", //2
-  tertiaryText: "", //3
+  secondaryText: "#111827", //2
+  tertiaryText: "#9CA3AF", //3
   quaternaryText: "", //4
   quinaryText: "", //5
   senaryText: "", //6
@@ -31,7 +31,7 @@ export const colors = {
   denaryText: "", //10
 
   //Border Colors
-  primaryBorderColor: "", //1
+  primaryBorderColor: "#E5E7EB", //1
   secondaryBorderColor: "", //2
   tertiaryBorderColor: "", //3
   quaternaryBorderColor: "", //4

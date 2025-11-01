@@ -1,13 +1,22 @@
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Image, ImageBackground, SafeAreaView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { LinearGradient } from "expo-linear-gradient";
+import { useEffect, useRef, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { RootStackParamList } from "../../types/navigation";
-import { useState, useRef, useEffect } from "react";
 
 type StartScreenNavProp = NativeStackNavigationProp<RootStackParamList>;
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const carouselData = [
   {
@@ -37,9 +46,9 @@ const StartScreen = () => {
   const navigation = useNavigation<StartScreenNavProp>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
-  
+
   const handleNewRegister = () => {
-    // navigation.navigate("Onboarding", { screen: "AddMedia" });
+    navigation.navigate("Signup");
   };
 
   const handleLogin = () => {
@@ -68,53 +77,65 @@ const StartScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={handleScroll}
-        style={styles.carousel}
-      >
-        {carouselData.map((item) => (
-          <View key={item.id} style={styles.slide}>
-            <Image source={item.image} style={styles.image} resizeMode="cover" />
-            <LinearGradient
-              colors={['transparent', 'rgba(255,255,255,0.7)', 'rgba(255,255,255,1)']}
-              style={styles.gradient}
-              locations={[0, 0.5, 1]}
-            />
-          </View>
-        ))}
-      </ScrollView>
-      <View style={styles.middleSection}>
-        <View style={styles.textContent}>
-          <Text style={styles.heading1}>{carouselData[currentIndex].title}</Text>
-          <Text style={styles.subheading}>{carouselData[currentIndex].subtitle}</Text>
-        </View>
-        <View style={styles.dotsContainer}>
-          {carouselData.map((_, index) => (
-            <View
-              key={index}
-              style={[styles.dot, currentIndex === index && styles.activeDot]}
-            />
-          ))}
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={handleNewRegister}
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={handleScroll}
+          style={styles.carousel}
         >
-          <Text style={styles.buttonText}>New user? Register for free</Text>
-        </TouchableOpacity>
-        <View style={styles.loginContainer}>
-          <Text style={styles.loginText}>Already have an account? </Text>
-          <TouchableOpacity onPress={handleLogin}>
-            <Text style={styles.loginLink}>Log in</Text>
-          </TouchableOpacity>
+          {carouselData.map((item) => (
+            <View key={item.id} style={styles.slide}>
+              <Image
+                source={item.image}
+                style={styles.image}
+                resizeMode="cover"
+              />
+              <LinearGradient
+                colors={[
+                  "transparent",
+                  "rgba(255,255,255,0.7)",
+                  "rgba(255,255,255,1)",
+                ]}
+                style={styles.gradient}
+                locations={[0, 0.5, 1]}
+              />
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.middleSection}>
+          <View style={styles.textContent}>
+            <Text style={styles.heading1}>
+              {carouselData[currentIndex].title}
+            </Text>
+            <Text style={styles.subheading}>
+              {carouselData[currentIndex].subtitle}
+            </Text>
+          </View>
+          <View style={styles.dotsContainer}>
+            {carouselData.map((_, index) => (
+              <View
+                key={index}
+                style={[styles.dot, currentIndex === index && styles.activeDot]}
+              />
+            ))}
+          </View>
         </View>
-      </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleNewRegister}
+          >
+            <Text style={styles.buttonText}>New user? Register for free</Text>
+          </TouchableOpacity>
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginText}>Already have an account? </Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <Text style={styles.loginLink}>Log in</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -175,18 +196,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#666",
   },
-  dotsContainer: { 
-    flexDirection: "row", 
-    gap: 8 
+  dotsContainer: {
+    flexDirection: "row",
+    gap: 8,
   },
-  dot: { 
-    width: 8, 
-    height: 8, 
-    borderRadius: 10, 
-    backgroundColor: "#9CA3AF" 
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 10,
+    backgroundColor: "#9CA3AF",
   },
-  activeDot: { 
-    backgroundColor: "#1F2937" 
+  activeDot: {
+    backgroundColor: "#1F2937",
   },
   buttonContainer: {
     width: "100%",
@@ -220,5 +241,4 @@ const styles = StyleSheet.create({
     color: "#F43F5E",
     fontWeight: "600",
   },
-
 });
