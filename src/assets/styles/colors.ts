@@ -19,7 +19,7 @@ export const colors = {
   nonaryBackground: "", //9
 
   //Text Colors
-  primaryText: "#F43F5E", //1
+  primaryText: "#F43F5E", //
   secondaryText: "", //2
   tertiaryText: "", //3
   quaternaryText: "", //4
@@ -31,10 +31,10 @@ export const colors = {
   denaryText: "", //10
 
   //Border Colors
-  primaryBorderColor: "", //1
-  secondaryBorderColor: "", //2
-  tertiaryBorderColor: "", //3
-  quaternaryBorderColor: "", //4
+  primaryBorderColor: "#FB7185", //1
+  secondaryBorderColor: "#FFE4E6", //2
+  tertiaryBorderColor: "#E5E7EB", //3
+  quaternaryBorderColor: "#FDA4AF", //4
   quinaryBorderColor: "", //5
   senaryBorderColor: "", //6
   septnaryBorderColor: "", //7
@@ -44,7 +44,13 @@ export const colors = {
 
   //Button Colors
   primaryButtonColor: "#F43F5E", //1
-  secondaryButtonColor: "", //2
+  secondaryButtonColor: "#FFF1F2", //2
   tertiaryButtonColor: "", //3
   quaternaryButtonColor: "", //4
+
+  //ButtonTextColor
+  primaryButtonTextColor: "#FFFFFF", //1
+  secondaryButtonTextColor: "", //2
+  tertiaryButtonTextColor: "", //3
+  quaternaryButtonTextColor: "", //4
 };

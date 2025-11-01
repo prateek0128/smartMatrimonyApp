@@ -4,6 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
 import { useState, useRef, useEffect } from "react";
+import PrimaryButton from "@/src/components/primaryButton";
+import SecondaryButton from "@/src/components/secondaryButton";
+import TertiaryButton from "@/src/components/tertiaryButton";
+import QuaternaryButton from "@/src/components/quaternaryButton";
+import PhoneNumberInput from "@/src/components/phoneNumberInput";
 
 type StartScreenNavProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -68,53 +73,65 @@ const StartScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-      <ScrollView
-        ref={scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={handleScroll}
-        style={styles.carousel}
-      >
-        {carouselData.map((item) => (
-          <View key={item.id} style={styles.slide}>
-            <Image source={item.image} style={styles.image} resizeMode="cover" />
-            <LinearGradient
-              colors={['transparent', 'rgba(255,255,255,0.7)', 'rgba(255,255,255,1)']}
-              style={styles.gradient}
-              locations={[0, 0.5, 1]}
-            />
-          </View>
-        ))}
-      </ScrollView>
-      <View style={styles.middleSection}>
-        <View style={styles.textContent}>
-          <Text style={styles.heading1}>{carouselData[currentIndex].title}</Text>
-          <Text style={styles.subheading}>{carouselData[currentIndex].subtitle}</Text>
-        </View>
-        <View style={styles.dotsContainer}>
-          {carouselData.map((_, index) => (
-            <View
-              key={index}
-              style={[styles.dot, currentIndex === index && styles.activeDot]}
-            />
-          ))}
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={handleNewRegister}
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={handleScroll}
+          style={styles.carousel}
         >
-          <Text style={styles.buttonText}>New user? Register for free</Text>
-        </TouchableOpacity>
-        <View style={styles.loginContainer}>
-          <Text style={styles.loginText}>Already have an account? </Text>
-          <TouchableOpacity onPress={handleLogin}>
-            <Text style={styles.loginLink}>Log in</Text>
-          </TouchableOpacity>
+          {carouselData.map((item) => (
+            <View key={item.id} style={styles.slide}>
+              <Image
+                source={item.image}
+                style={styles.image}
+                resizeMode="cover"
+              />
+              <LinearGradient
+                colors={[
+                  "transparent",
+                  "rgba(255,255,255,0.7)",
+                  "rgba(255,255,255,1)",
+                ]}
+                style={styles.gradient}
+                locations={[0, 0.5, 1]}
+              />
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.middleSection}>
+          <View style={styles.textContent}>
+            <Text style={styles.heading1}>
+              {carouselData[currentIndex].title}
+            </Text>
+            <Text style={styles.subheading}>
+              {carouselData[currentIndex].subtitle}
+            </Text>
+          </View>
+          <View style={styles.dotsContainer}>
+            {carouselData.map((_, index) => (
+              <View
+                key={index}
+                style={[styles.dot, currentIndex === index && styles.activeDot]}
+              />
+            ))}
+          </View>
         </View>
-      </View>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton
+            title={"New user? Register for free"}
+            onPress={handleNewRegister}
+            
+          />
+      
+          <View style={styles.loginContainer}>
+            <Text style={styles.loginText}>Already have an account? </Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <Text style={styles.loginLink}>Log in</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
