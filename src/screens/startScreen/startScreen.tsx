@@ -49,7 +49,7 @@ const StartScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const handleNewRegister = () => {
-    navigation.navigate("OTP", { phoneNumber: "+91 9876543210" });
+    navigation.navigate("Signup");
   };
 
   const handleLogin = () => {
