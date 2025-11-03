@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontFamily: fontFamily.Inter500,
     fontSize: 14,
+    lineHeight: 16,
     color: colors.secondaryText,
   },
   defaultInput: {
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     color: colors.secondaryText,
     fontFamily: fontFamily.Inter400,
     backgroundColor: colors.white,
+      textAlignVertical: "center", 
   },
 });
 

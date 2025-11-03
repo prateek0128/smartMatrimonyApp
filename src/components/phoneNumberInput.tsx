@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
-  View,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  ViewStyle,
   TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
 
 interface Country {
@@ -67,13 +67,20 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
   const inputContainerRef = useRef<View>(null);
 
+  const formatIndian = (digits: string) => {
+    const d = digits.replace(/\D/g, "").slice(0, 10);
+    if (d.length <= 5) return d;
+    return d.replace(/(\d{5})(\d{0,5})/, (_, a, b) => (b ? `${a} ${b}` : a));
+  };
+
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
     setDropdownVisible(false);
   };
 
-  const renderCountryItem = ({ item }: { item: Country }) => (
+  const renderCountryItem = (item: Country) => (
     <TouchableOpacity
+      key={item.code}
       style={styles.countryItem}
       onPress={() => handleCountrySelect(item)}
     >
@@ -87,7 +94,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     <View style={[styles.container, style]}>
       {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
-      <View 
+      <View
         ref={inputContainerRef}
         style={styles.inputContainer}
         onLayout={(event) => {
@@ -112,12 +119,13 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
         <TextInput
           style={[styles.input, inputStyle, disabled && styles.disabled]}
-          value={value}
-          onChangeText={onChangeText}
+          value={formatIndian(value)}
+          onChangeText={(t) => onChangeText && onChangeText(t.replace(/\D/g, "").slice(0, 10))}
           placeholder={placeholder}
           placeholderTextColor="#999"
           keyboardType="phone-pad"
           editable={!disabled}
+          maxLength={12}
         />
       </View>
 
@@ -125,13 +133,13 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
       {dropdownVisible && (
         <View style={[styles.dropdown, { width: 200, top: inputContainerHeight + (label ? 32 : 0) }]}>
-          <FlatList
-            data={countries}
-            renderItem={renderCountryItem}
-            keyExtractor={(item) => item.code}
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
             style={styles.dropdownList}
-          />
+          >
+            {countries.map(renderCountryItem)}
+          </ScrollView>
         </View>
       )}
     </View>
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   label: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
     color: "#000",
     marginBottom: 8,
@@ -180,9 +188,10 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   dialCode: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#000",
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
+    marginRight: 6,
     fontWeight: "500",
   },
   input: {

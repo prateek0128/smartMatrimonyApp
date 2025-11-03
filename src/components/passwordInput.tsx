@@ -1,13 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TextStyle,
-    TouchableOpacity,
-    View,
-    ViewStyle,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { colors } from "../assets/styles/colors";
@@ -92,7 +92,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
             styles.input,
             isFocused && styles.inputFocused,
             hasError && styles.inputError,
-            inputStyle,
+            inputStyle, { textAlignVertical: "center" }  
           ]}
           value={value}
           onChangeText={onChangeText}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   title: {
-    fontSize: 14,
+    fontSize: 14  ,
     fontFamily: fontFamily.Inter500,
     fontWeight: "500",
     lineHeight: 16,
@@ -183,11 +183,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingLeft: 45,
     paddingRight: 50,
-    paddingVertical: 12,
-    fontSize: 16,
+    paddingVertical: 9,
+    fontSize: 14,
     fontFamily: fontFamily.Inter400,
     color: colors.black,
     backgroundColor: colors.white,
+    textAlignVertical: "center", 
   },
   passwordIcon: {
     position: "absolute",
