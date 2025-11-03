@@ -76,15 +76,7 @@ export default function OTPVerification() {
     <LinearGradient colors={["#FFF5F7", "#FFFFFF"]} style={styles.container}>
       <Toast />
 
-      {/* Status Bar */}
-      <View style={styles.statusBar}>
-        <Text style={styles.timeText}>09:30 PM</Text>
-        <View style={styles.iconsRow}>
-          <View style={styles.fakeIcon} />
-          <View style={styles.fakeIcon} />
-          <View style={styles.fakeIcon} />
-        </View>
-      </View>
+      
 
       {/* Header */}
       <TouchableOpacity
