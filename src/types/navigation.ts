@@ -5,6 +5,8 @@ export type RootStackParamList = {
   Start: undefined;
   Login: undefined;
   Signup: undefined;
+  OTP: { phoneNumber: string };
+  ProfileCreation: undefined;
   Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
   MainTabs: NavigatorScreenParams<TabsParamList>;
 };
@@ -29,4 +31,10 @@ export type HomeStackParamList = {
 export type SettingsStackParamList = {
   App: undefined;
   Profile: undefined;
+};
+
+export type OTPRouteProp = {
+  key: string;
+  name: "OTP";
+  params: { phoneNumber: string };
 };
