@@ -30,6 +30,12 @@ export const login = async (loginData: any) => {
   return response;
 };
 
+export const usersLogin = async (loginData: any) => {
+  const client = await apiClient();
+  const response = await client.post("/users/login", loginData);
+  return response;
+};
+
 export const requestOtp = async (requestOtpData: any) => {
   const client = await apiClient();
   const response = await client.post("/request-otp", requestOtpData);

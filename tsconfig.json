@@ -3,9 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "baseUrl": ".",                       // <-- REQUIRED for "paths" to work
+    "paths": { "@/*": ["./*"] },
+    "skipLibCheck": true
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
