@@ -31,7 +31,7 @@ export const colors = {
   nonaryBackground: "", //9
 
   //Text Colors
-  primaryText: "#E91E63", //1 - Updated to match UI
+  primaryText: "#E91E63", //1 
   secondaryText: "#111827", //2
   tertiaryText: "#9CA3AF", //3
   quaternaryText: "", //4

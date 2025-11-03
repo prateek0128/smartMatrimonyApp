@@ -104,7 +104,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
             data={casteOptions}
             placeholder="Select your caste"
             value={caste}
-            onChange={setCaste}
+            onChange={(value) => setCaste(String(value))}
           />
 
           <InputTextField
@@ -140,7 +140,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
             data={rashiOptions}
             placeholder="Select rashi"
             value={rashi}
-            onChange={setRashi}
+            onChange={(value) => setRashi(String(value))}
           />
 
           <DropdownInput
@@ -148,7 +148,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
             data={manglikOptions}
             placeholder="Select manglik status"
             value={manglik}
-            onChange={setManglik}
+            onChange={(value) => setManglik(String(value))}
           />
 
           <DropdownInput
@@ -156,7 +156,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
             data={familyTypeOptions}
             placeholder="Select family type"
             value={familyType}
-            onChange={setFamilyType}
+            onChange={(value) => setFamilyType(String(value))}
           />
 
           <DropdownInput
@@ -164,7 +164,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
             data={familyStatusOptions}
             placeholder="Select family status"
             value={familyStatus}
-            onChange={setFamilyStatus}
+            onChange={(value) => setFamilyStatus(String(value))}
           />
 
           <InputTextField
@@ -202,7 +202,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
                 data={numberOptions}
                 placeholder="Select"
                 value={brothers}
-                onChange={setBrothers}
+                onChange={(value) => setBrothers(String(value))}
               />
             </View>
 
@@ -212,7 +212,7 @@ export default function FamilyBackgroundStep({ onNext }: FamilyBackgroundStepPro
                 data={numberOptions}
                 placeholder="Select"
                 value={sisters}
-                onChange={setSisters}
+                onChange={(value) => setSisters(String(value))}
               />
             </View>
           </View>

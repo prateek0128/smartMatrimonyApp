@@ -5,6 +5,7 @@ export type RootStackParamList = {
   Start: undefined;
   Login: undefined;
   Signup: undefined;
+  OTP: { phoneNumber: string };
   Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
   ProfileCreation: undefined;
   MainTabs: NavigatorScreenParams<TabsParamList>;

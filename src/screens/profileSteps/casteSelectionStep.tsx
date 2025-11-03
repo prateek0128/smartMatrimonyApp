@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface CasteSelectionStepProps {
   onNext: () => void;
@@ -75,9 +76,12 @@ export default function CasteSelectionStep({ onNext }: CasteSelectionStepProps) 
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <View style={styles.iconContainer}>
+          <LinearGradient
+            colors={["#E91E63", "#FF6B9D"]}
+            style={styles.iconContainer}
+          >
             <Text style={styles.iconText}>👥</Text>
-          </View>
+          </LinearGradient>
           <Text style={styles.title}>Choose Your Caste</Text>
           <Text style={styles.subtitle}>
             Select your community to find matches from similar backgrounds
@@ -143,7 +147,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 64,
     height: 64,
-    backgroundColor: "#E91E63",
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",

@@ -9,7 +9,10 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { launchImageLibrary, ImagePickerResponse } from 'react-native-image-picker';
+import PrimaryButton from '../../components/primaryButton';
+import { Users } from 'lucide-react-native';
 // import DocumentPicker from 'react-native-document-picker';
 
 interface PhotoUploadStepProps {
@@ -78,9 +81,12 @@ export default function PhotoUploadStep({ onNext }: PhotoUploadStepProps) {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <View style={styles.iconContainer}>
-          <Text style={styles.iconText}>📷</Text>
-        </View>
+        <LinearGradient
+          colors={["#E91E63", "#FF6B9D"]}
+          style={styles.iconContainer}
+        >
+          <Users size={32} color="#FFFFFF" />
+        </LinearGradient>
         <Text style={styles.title}>Begin Your Journey</Text>
         <Text style={styles.subtitle}>
           Upload your photos and bio-data to get personalized matches
@@ -183,15 +189,11 @@ export default function PhotoUploadStep({ onNext }: PhotoUploadStepProps) {
         )}
       </View>
 
-      <TouchableOpacity
-        style={[styles.nextButton, photos.length === 0 && styles.nextButtonDisabled]}
+      <PrimaryButton
+        title="Continue"
         onPress={onNext}
         disabled={photos.length === 0}
-      >
-        <Text style={[styles.nextButtonText, photos.length === 0 && styles.nextButtonTextDisabled]}>
-          Continue
-        </Text>
-      </TouchableOpacity>
+      />
     </ScrollView>
   );
 }
@@ -209,15 +211,12 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 64,
     height: 64,
-    backgroundColor: '#E91E63',
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
   },
-  iconText: {
-    fontSize: 32,
-  },
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -432,22 +431,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666666',
   },
-  nextButton: {
-    backgroundColor: '#E91E63',
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  nextButtonDisabled: {
-    backgroundColor: '#CCCCCC',
-  },
-  nextButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  nextButtonTextDisabled: {
-    color: '#999999',
-  },
+
 });

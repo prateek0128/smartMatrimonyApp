@@ -78,7 +78,7 @@ export default function EducationCareerStep({ onNext }: EducationCareerStepProps
             data={educationOptions}
             placeholder="Select education level"
             value={education}
-            onChange={setEducation}
+            onChange={(value) => setEducation(String(value))}
           />
 
           <InputTextField
@@ -93,7 +93,7 @@ export default function EducationCareerStep({ onNext }: EducationCareerStepProps
             data={occupationOptions}
             placeholder="Select occupation"
             value={occupation}
-            onChange={setOccupation}
+            onChange={(value) => setOccupation(String(value))}
           />
 
           <InputTextField
@@ -115,7 +115,7 @@ export default function EducationCareerStep({ onNext }: EducationCareerStepProps
             data={incomeOptions}
             placeholder="Select income range"
             value={income}
-            onChange={setIncome}
+            onChange={(value) => setIncome(String(value))}
           />
 
           <InputTextField

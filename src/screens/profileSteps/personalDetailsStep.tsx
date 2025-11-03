@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import DropdownInput from "../../components/dropdownInput";
 import InputTextField from "../../components/inputTextField";
 
@@ -73,9 +74,12 @@ export default function PersonalDetailsStep({ onNext }: PersonalDetailsStepProps
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <View style={styles.iconContainer}>
+          <LinearGradient
+            colors={["#E91E63", "#FF6B9D"]}
+            style={styles.iconContainer}
+          >
             <Text style={styles.iconText}>👤</Text>
-          </View>
+          </LinearGradient>
           <Text style={styles.title}>Personal Info</Text>
           <Text style={styles.subtitle}>Tell us about yourself</Text>
         </View>
@@ -190,7 +194,6 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 64,
     height: 64,
-    backgroundColor: "#E91E63",
     borderRadius: 16,
     alignItems: "center",
     justifyContent: "center",

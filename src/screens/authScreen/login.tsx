@@ -57,7 +57,7 @@ export default function Login() {
     if (loginMethod === "phone") {
       showToast("success", "Sending OTP to " + values.phoneNumber);
       setTimeout(() => {
-        navigation.navigate("ProfileCreation");
+        navigation.navigate("OTP", { phoneNumber: values.phoneNumber });
       }, 1500);
     } else {
       showToast("success", "Login successful!");

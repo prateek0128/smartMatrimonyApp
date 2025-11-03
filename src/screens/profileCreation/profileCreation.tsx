@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../types/navigation";
+import PrimaryButton from "../../components/primaryButton";
 import PhotoUploadStep from "../profileSteps/photoUploadStep";
 import CasteSelectionStep from "../profileSteps/casteSelectionStep";
 import PersonalDetailsStep from "../profileSteps/personalDetailsStep";
@@ -126,11 +127,10 @@ export default function ProfileCreation() {
 
       {/* Footer Button */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.continueButton} onPress={handleNext}>
-          <Text style={styles.continueButtonText}>
-            {currentStep === totalSteps ? "Complete Profile" : "Continue"}
-          </Text>
-        </TouchableOpacity>
+        <PrimaryButton
+          title={currentStep === totalSteps ? "Complete Profile" : "Continue"}
+          onPress={handleNext}
+        />
       </View>
     </SafeAreaView>
   );
@@ -218,21 +218,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#f0f0f0",
   },
-  continueButton: {
-    backgroundColor: "#E91E63",
-    height: 56,
-    borderRadius: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#E91E63",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  continueButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "600",
-  },
+
 });
