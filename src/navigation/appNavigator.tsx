@@ -1,11 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/authScreen/login";
-import SignUp from "../screens/authScreen/signUp";
+import SignUp from "../screens/authScreen/signup";
 import Splash from "../screens/splashScreen/splash";
 import StartScreen from "../screens/startScreen/startScreen";
 import { RootStackParamList } from "../types/navigation";
 import OnboardingStack from "./onboardingStack";
 import TabsNavigator from "./tabsNavigator";
+import OTPVerification from "../screens/authScreen/otpScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,6 +22,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen name="Onboarding" component={OnboardingStack} />
       <Stack.Screen name="MainTabs" component={TabsNavigator} />
+      <Stack.Screen name="OTP" component={OTPVerification} />
     </Stack.Navigator>
   );
 }
