@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { colors } from "../assets/styles/colors";
@@ -13,7 +13,7 @@ type DropdownInputProps = {
   label?: string;
   data: DropdownItem[];
   placeholder?: string;
-  value: string | number | null;
+  value?: string | number | null;
   onChange: (value: string | number) => void;
 };
 
@@ -24,12 +24,14 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
   value,
   onChange,
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <View style={styles.dropdownContainer}>
       {label && <Text style={styles.inputLabel}>{label}</Text>}
 
       <Dropdown
-        style={styles.dropdown}
+        style={[styles.dropdown, isFocused && styles.focusedDropdown]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         itemTextStyle={styles.itemTextStyle}
@@ -41,6 +43,8 @@ const DropdownInput: React.FC<DropdownInputProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={(item) => onChange(item.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
     </View>
   );
@@ -54,13 +58,16 @@ const styles = StyleSheet.create({
     color: colors.secondaryText,
   },
   dropdown: {
-    height: 40,
+    height: 42,
     borderWidth: 1,
     borderColor: colors.primaryBorderColor,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
     backgroundColor: colors.white,
+  },
+  focusedDropdown: {
+    borderColor: colors.primaryBorderColor,
   },
   placeholderStyle: { color: colors.tertiaryText, fontSize: 14 },
   selectedTextStyle: {
